@@ -28,7 +28,7 @@ public class PersonRepository {
         return em.createQuery("from PersonModel",PersonModel.class).getResultList();
     }
 
-    public PersonModel getById(int id){
+    public PersonModel findById(int id){
 
         EntityManager em = entityManagerFactory.createEntityManager();
 
@@ -57,7 +57,7 @@ public class PersonRepository {
 
             personModel.setId(_id.intValue());
 
-            for(AddressModel addressModel : personModel.getAddressModels())
+            for(AddressModel addressModel : personModel.getAddress())
                 addressModel.setPersonModel(personModel);
 
 
@@ -96,7 +96,7 @@ public class PersonRepository {
         try {
             em.getTransaction().begin();
 
-            for(AddressModel addressModel : personModel.getAddressModels()) {
+            for(AddressModel addressModel : personModel.getAddress()) {
                 addressModel.setPersonModel(personModel);
             }
 

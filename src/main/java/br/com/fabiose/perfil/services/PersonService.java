@@ -24,8 +24,8 @@ public class PersonService {
         return this.personRepository.getAll();
     }
 
-    public PersonModel getById(int id) {
-        return this.personRepository.getById(id);
+    public PersonModel findById(int id) {
+        return this.personRepository.findById(id);
     }
 
     public PersonModel addPerson(PersonModel personModel){

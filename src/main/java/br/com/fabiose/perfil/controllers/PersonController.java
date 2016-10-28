@@ -10,7 +10,8 @@ import br.com.fabiose.perfil.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import java.util.List;
 
 
@@ -24,31 +25,51 @@ public class PersonController {
 
     @CrossOrigin
     @RequestMapping(method = RequestMethod.GET)
-    public List<PersonModel> getAll(){
-        return this.personService.getAll();
+    public ResponseEntity getAll(){
+        try{
+            return ResponseEntity.ok(this.personService.getAll());
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @CrossOrigin
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public PersonModel getById(@PathVariable("id")int id){
-        return this.personService.getById(id);
+    public ResponseEntity findById(@PathVariable("id")int id){
+        try{
+            return ResponseEntity.ok(this.personService.findById(id));
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @CrossOrigin
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public PersonModel addPerson(@RequestBody PersonModel personModel){
-       return this.personService.addPerson(personModel);
+    public ResponseEntity addPerson(@RequestBody PersonModel personModel){
+        try{
+            return ResponseEntity.ok(this.personService.addPerson(personModel));
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @CrossOrigin
     @RequestMapping(value = "/remove", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public PersonModel removePerson(@RequestBody PersonModel personModel){
-        return this.personService.removePerson(personModel);
+    public ResponseEntity removePerson(@RequestBody PersonModel personModel){
+        try{
+            return ResponseEntity.ok(this.personService.removePerson(personModel));
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @CrossOrigin
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public PersonModel updatePerson(@RequestBody PersonModel personModel){
-        return this.personService.updatePerson(personModel);
+    public ResponseEntity updatePerson(@RequestBody PersonModel personModel){
+        try{
+            return ResponseEntity.ok(this.personService.updatePerson(personModel));
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }
